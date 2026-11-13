@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="description" content="Sample quote desk for a laser cutting shop, rebuilt from the shop's quote spreadsheet." />
+    <title>Northgate Laser · Quote desk (sample)</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='4' fill='%231b1a17'/%3E%3Cpath d='M5 28h11l5-15 6 15h8' fill='none' stroke='%23ff7a3d' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/app.css" />
+    <link rel="stylesheet" href="styles/views.css" />
+    <link rel="stylesheet" href="styles/print.css" media="print" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to the quote</a>
+
+    <header class="masthead">
+      <div class="masthead-in">
+        <p class="brand">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <rect class="mark-plate" x="3" y="3" width="34" height="34" rx="2" />
+            <path class="mark-kerf" d="M3 28h13l5-15 6 15h10" />
+            <circle class="mark-spark" cx="21" cy="13" r="2.6" />
+          </svg>
+          <span class="brand-name">Northgate Laser</span>
+          <span class="brand-tag">Quote desk</span>
+        </p>
+        <nav class="tabs" aria-label="Sections">
+          <a href="#quote" data-view="quote">Quote</a>
+          <a href="#saved" data-view="saved">Saved <span id="saved-count" class="tab-count">0</span></a>
+          <a href="#prices" data-view="prices">Prices</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <p id="notice" class="notice" role="alert" hidden></p>
+
+      <section id="view-quote" class="view" aria-labelledby="quote-heading">
+        <div class="quote-layout">
+          <div class="quote-form">
+            <header class="quote-head">
+              <div>
+                <p class="eyebrow" id="quote-status">Draft</p>
+                <h1 id="quote-heading" tabindex="-1">New quote</h1>
+              </div>
+              <div class="quote-head-actions">
+                <button type="button" class="btn btn-quiet" id="load-sample">Fill in a sample</button>
+                <button type="button" class="btn btn-quiet" id="new-quote">Start fresh</button>
+              </div>
+            </header>
+
+            <div class="who">
+              <label class="f f-customer">
+                <span class="f-label">Customer</span>
+                <input id="customer" type="text" maxlength="80" autocomplete="off" placeholder="Who is this quote for?" />
+              </label>
+              <label class="f f-date">
+                <span class="f-label">Date</span>
+                <input id="quote-date" type="date" />
+              </label>
+            </div>
+
+            <h2 class="section-title">Parts</h2>
+            <div id="lines" class="lines"></div>
+            <button type="button" class="btn btn-add" id="add-line">+ Add a part</button>
+          </div>
+
+          <aside class="ticket" aria-labelledby="ticket-heading">
+            <header class="ticket-head">
+              <h2 id="ticket-heading">Quote</h2>
+              <p id="ticket-number" class="ticket-number">Draft</p>
+            </header>
+            <p id="ticket-customer" class="ticket-customer"></p>
+            <ol id="ticket-lines" class="ticket-lines"></ol>
+            <dl class="ticket-sums">
+              <div>
+                <dt>Parts</dt>
+                <dd id="ticket-parts"></dd>
+              </div>
+              <div>
+                <dt>Setup fee</dt>
+                <dd id="ticket-setup"></dd>
+              </div>
+              <div class="rush-row">
+                <dt>
+                  <label class="switch">
+                    <input type="checkbox" id="rush" />
+                    <span class="switch-track" aria-hidden="true"></span>
+                    <span id="rush-label">Rush job</span>
+                  </label>
+                </dt>
+                <dd id="ticket-rush"></dd>
+              </div>
+            </dl>
+            <p id="ticket-minimum" class="ticket-note" hidden></p>
+            <p class="ticket-total" aria-live="polite" aria-atomic="true">
+              <span class="ticket-total-label">Total</span>
+              <strong id="ticket-total"></strong>
+            </p>
+            <p id="ticket-hint" class="ticket-hint"></p>
+            <div class="ticket-actions">
+              <button type="button" class="btn btn-main" id="save-quote">Save quote</button>
+              <button type="button" class="btn" id="print-quote">Print / PDF</button>
+              <button type="button" class="btn" id="copy-quote">Copy as text</button>
+            </div>
+          </aside>
+        </div>
+        <button type="button" class="total-bar" id="total-bar">
+          <span class="total-bar-label">Total</span>
+          <strong id="bar-total"></strong>
+          <span class="total-bar-go">See quote ↓</span>
+        </button>
+      </section>
+
+      <section id="view-saved" class="view" aria-labelledby="saved-heading" hidden>
+        <p class="eyebrow">Kept in this browser</p>
+        <h1 id="saved-heading" tabindex="-1">Saved quotes</h1>
+        <p class="lede">Every saved quote keeps its number. Open one to change it or print it again.</p>
+        <ul id="saved-list" class="saved-list"></ul>
+        <p id="saved-empty" class="empty">No saved quotes yet. Build one on the Quote tab and press “Save quote”.</p>
+      </section>
+
+      <section id="view-prices" class="view" aria-labelledby="prices-heading" hidden>
+        <header class="prices-head">
+          <div>
+            <p class="eyebrow">One place for every number</p>
+            <h1 id="prices-heading" tabindex="-1">Prices</h1>
+            <p class="lede">
+              Every number the quotes use lives here. Change one and the next quote uses it. There are no formulas to
+              break.
+            </p>
+          </div>
+          <button type="button" class="btn btn-quiet" id="reset-prices">Back to sample prices</button>
+        </header>
+        <div class="prices-layout">
+          <section class="panel" aria-labelledby="shop-heading">
+            <h2 id="shop-heading">Shop numbers</h2>
+            <div id="shop-settings" class="settings"></div>
+            <h3>Quantity discounts</h3>
+            <ul id="tiers" class="tiers"></ul>
+          </section>
+          <section class="panel" aria-labelledby="materials-heading">
+            <h2 id="materials-heading">Materials</h2>
+            <div class="table-wrap">
+              <table id="materials" class="materials"></table>
+            </div>
+            <p id="materials-error" class="field-error" role="status" hidden></p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>
+        <strong>Sample project.</strong> Northgate Laser is a made-up shop and these prices are examples. This page was
+        rebuilt from the shop's old quote spreadsheet:
+        <a href="../before/laser-quote-sheet.xlsx" download>download the original sheet</a>.
+      </p>
+      <p>Quotes and prices are saved in this browser only.</p>
+    </footer>
+
+    <section id="print-sheet" class="print-sheet" aria-hidden="true"></section>
+    <p id="toast" class="toast" role="status" aria-live="polite"></p>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

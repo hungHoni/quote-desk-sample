@@ -1,0 +1,65 @@
+/* Design tokens: workshop paper, ink, and one laser-orange accent. */
+
+:root {
+  /* Surfaces */
+  --paper: #f3efe6;
+  --card: #fffdf8;
+  --card-bright: #ffffff;
+  --grid: rgb(27 26 23 / 5%);
+
+  /* Ink */
+  --ink: #1b1a17;
+  --ink-lift: #35322c;
+  --ink-soft: #55524a;
+  --ink-faint: #6f6b5e;
+  --rule: #d9d2c1;
+  --rule-strong: #b3ab97;
+  --paper-dim: #c9c3b4;
+
+  /* Accent: laser orange. --laser is for large text and fills, --laser-deep for small text. */
+  --laser: #c8400a;
+  --laser-deep: #a53306;
+  --laser-wash: #fde9dd;
+  --spark: #ff7a3d;
+
+  /* Secondary and states */
+  --steel: #2f4858;
+  --steel-wash: #e3eaee;
+  --bad: #a8201a;
+  --bad-wash: #fbe9e7;
+
+  /* Type */
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --text-xs: 0.72rem;
+  --text-sm: 0.86rem;
+  --text-base: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem);
+  --text-total: 3.1rem;
+  --text-total-mid: 2.4rem;
+  --text-total-small: 1.9rem;
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.25rem;
+  --space-7: 3.5rem;
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 2rem);
+  --page: 73rem;
+
+  /* Shape and depth */
+  --radius: 3px;
+  --border: 1.5px solid var(--ink);
+  --shadow-hard: 4px 4px 0 var(--ink);
+  --shadow-button: 3px 3px 0 var(--ink);
+  --shadow-pressed: 1px 1px 0 var(--ink);
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-normal: 260ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

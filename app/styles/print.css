@@ -1,0 +1,114 @@
+/* On paper only the customer's quote is printed: no prices behind the price, no buttons. */
+
+@page {
+  margin: 18mm;
+}
+
+body {
+  background: #fff;
+  color: #000;
+}
+
+.masthead,
+main,
+.foot,
+.toast,
+.skip {
+  display: none !important;
+}
+
+.print-sheet {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 10.5pt;
+}
+
+.print-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10mm;
+  padding-bottom: 6mm;
+  border-bottom: 2pt solid #000;
+}
+
+.print-shop {
+  font-size: 20pt;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.print-meta {
+  font-family: var(--font-mono);
+  font-size: 10pt;
+  text-align: right;
+}
+
+.print-meta strong {
+  display: block;
+  font-size: 13pt;
+}
+
+.print-for {
+  margin: 8mm 0;
+  font-size: 12pt;
+}
+
+.print-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.print-table th {
+  padding: 2mm 1mm;
+  border-bottom: 1pt solid #000;
+  font-size: 8.5pt;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.print-table td {
+  padding: 2.5mm 1mm;
+  border-bottom: 0.5pt solid #999;
+  vertical-align: top;
+}
+
+.print-table .num {
+  font-family: var(--font-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.print-table small {
+  display: block;
+  font-size: 8.5pt;
+  color: #444;
+}
+
+.print-sums {
+  width: 75mm;
+  margin: 6mm 0 0 auto;
+  font-family: var(--font-mono);
+}
+
+.print-sums div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2mm 0;
+}
+
+.print-sums .is-grand {
+  margin-top: 2mm;
+  padding-top: 3mm;
+  border-top: 2pt solid #000;
+  font-size: 14pt;
+  font-weight: 600;
+}
+
+.print-foot {
+  margin-top: 12mm;
+  font-size: 9pt;
+  color: #444;
+}
